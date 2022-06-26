@@ -6,7 +6,7 @@
 	$id = $_POST['id'];
 
 
-	removeUsuario($conexao, $id);
+	removeUsuario($connection, $id);
 	header("Location:lista-usuario.php?removido=true");
 	die();
 

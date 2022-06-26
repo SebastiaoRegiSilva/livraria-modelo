@@ -1,38 +1,50 @@
-<?php 
-	require_once("cabecalho.php");
+<?php
+    include('conecta.php');
+    require_once("cabecalho.php");
+    session_start();
+    if(!isset($_SESSION['useremail']) == true)
+    {
+      unset($_SESSION['login.php']);
 
-	require_once("logica-usuario.php");
+      header('Location: login.php');
+    }
 
+    $logado = $_SESSION['useremail'];
+    
+    $sql = "SELECT * FROM usuario WHERE useremail = '$logado' ";
+    $buscar = mysqli_query($connection,$sql);
+    $dados = mysqli_fetch_array($buscar);
+
+    $id = $dados['id'];
+    $usuario = $dados['useremail'];
+    $senha = $dados['senhauser'];
+    $niveluser = $dados['permissao'];
+
+   
 ?>
-	
-	
 
-	<?php if(usuarioEstaLogado()){ ?>
-		<h1>Bem Vindo á Livraria</h1>
-		<div class=" alert alert-success" role="alert">Usuário <?=usuarioLogado();?> logado com sucesso.
-		</div>
-	<?php }else { ?>
-	<p class="lead">Para usar o sistema faça o login.</p>
-	<form action="login.php" method="post" class="form-horizontal">
-		<div class="form-group">
-			<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-			<div class="col-sm-10">
-				<input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="email">
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword3" class="col-sm-2 control-label">Senha</label>
-			<div class="col-sm-10">
-				<input type="password" class="form-control" id="inputPassword" placeholder="Senha" name="senha">
-			</div>
-		</div>
-		<div class="form-group">
-    		<div class="col-sm-offset-2 col-sm-10">
-      			<button type="submit" class="btn btn-default">Logar</button>
-    		</div>
-  		</div>
-	</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livraria Roma</title>
+</head>
+<body>
+          <?php
+            if ($niveluser == 3) { ?>
+          <h1>Bem Vindo á Livraria você está conectado como ADM</h1>
+          <?php } ?>
+          <?php
+            if ($niveluser == 2) { ?>
+          <h1>Bem Vindo á Livraria você está conectado como MODERADOR</h1>
+          <?php } ?>
+          <?php
+            if ($niveluser == 1) { ?>
+          <h1>Bem Vindo á Livraria você está conectado como USER</h1>
+          <?php } ?>
+  
+</body>
+</html>
 
-	<?php } ?>
-
-<?php require_once("rodape.php"); ?>

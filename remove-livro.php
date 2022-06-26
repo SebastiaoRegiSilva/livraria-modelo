@@ -5,7 +5,7 @@
 
 	$id = $_POST['id'];
 
-	removeLivro($conexao, $id);
+	removeLivro($connection, $id);
 	header("Location:lista-livro.php?removido=true");
 	die();
 

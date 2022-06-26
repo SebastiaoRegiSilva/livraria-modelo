@@ -2,11 +2,10 @@
 	require_once("cabecalho.php");
 	require_once("conecta.php");
 	require_once("banco-livraria.php");
-	require_once("logica-usuario.php");
 ?>
 
 
-<?php if(usuarioEstaLogado()){ ?>
+<?php if ($niveluser == 3) { ?>
 
 <?php 
 	if(array_key_exists("removido", $_GET) && $_GET == true){ ?>
@@ -16,11 +15,13 @@
 		<tr>
 			<td>Nome</td>
 			<td>Telefone</td>
+			<td>Alterar</td>
+			<td>Deletar</td>
 		</tr>
 	<?php
-		foreach(listaUsuario($conexao) as $usuario){ ?>
+		foreach(listaUsuario($connection) as $usuario){ ?>
 		<tr>
-			<td><?= $usuario['nome']; ?></td>
+			<td><?= $usuario['useremail']; ?></td>
 			<td><?= $usuario['telefone']?></td>
 			<td><a class="btn btn-default" href="altera-usuario-formulario.php?id=<?=$usuario['id']?>">
 				Alterar</a></td>

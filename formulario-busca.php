@@ -2,15 +2,12 @@
 	require_once("cabecalho.php"); 
 	require_once("conecta.php");
 	require_once("banco-livraria.php");
-	require_once("logica-usuario.php");
-
-
 
 ?>
 
+<?php
+            if ($niveluser >= 1) { ?>
 	
-	
-	<?php if(usuarioEstaLogado()){ ?>
 	<h2>Buscar Livros</h2>
 	<form action="busca-livro.php" method="post" class="form-horizontal">
 		<div class="form-group">
@@ -31,7 +28,7 @@
 
 
  	<?php }else{ ?>
- 		<div class="alert alert-danger" role="alert">Para usar esta funcionalidade você precisa estar logado.</div>
+ 		<div class="alert alert-danger" role="alert">Para usar esta funcionalidade você precisa ser ADM.</div>
  	<?php } ?>
 
 

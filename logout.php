@@ -1,8 +1,14 @@
-<?php 
-	require_once("logica-usuario.php");
 
-	logout();
+<?php
 
-	$_SESSION['success'] = "Deslogado com sucesso";
-	header("Location: index.php");
-	die();
+session_start();
+
+if(isset($_POST['logout_btn']))
+
+{
+    session_destroy();
+    unset($_SESSION['useremail']);
+    header('Location: login.php');
+}
+
+?>

@@ -2,25 +2,21 @@
 	require_once("cabecalho.php");
 	require_once("conecta.php");
 	require_once("banco-livraria.php");
+	include 'script/password.php';
 
-	$query = "SELECT * FROM usuario WHERE id= $id ";
-
-	$id = $_POST['id'];
-	$nome = $_POST['nome'];
-	$nomeauto = $_POST['nomeautor'];
-	$isbm = $_POST['isbm'];
-	$editora = $_POST['editora'];
-	$sinopse = $_POST['sinopse'];
-	$preco = $_POST['valor'];
-
-		?>
 	
+    $id = $_POST['id'];
+	$nome = $_POST['nome'];
+	$senha = $_POST['senha'];
+	$nivel = $_POST['nivel'];
+	$telefone = $_POST['telefone'];
+?>
 
 <!DOCTYPE html>
 <html>
 
 <?php
-            if ($niveluser >= 3) { ?>
+            if ($nivel >= 3) { ?>
 <body>
 
 	<div class="container-fluid mt--7">
@@ -29,7 +25,7 @@
 			<div class="col">
 				<div class="card shadow">
 					<div class="card-header border-1">
-						<h3 class="mb-0">STATUS LIVRO </h3>
+						<h3 class="mb-0">STATUS USUÁRIO </h3>
 					</div>
 
 					<div class="container" style="margin-top: 10px">
@@ -37,7 +33,7 @@
 
 						include 'conecta.php';
 						
-					    $atualizar = "UPDATE livro SET nomeLivro='$nome',nomeAutor='$nomeauto',valor='$preco',isbm='$isbm',editora='$editora',sinopse='$sinopse' where id='$id' ";
+					    $atualizar = "UPDATE usuario SET useremail='$nome',senhauser=md5('$senha'),permissao='$nivel',telefone='$telefone' WHERE id='$id' ";
 						$inserir = mysqli_query($connection,$atualizar);
 						$teste = mysqli_affected_rows($connection);
                         
@@ -48,7 +44,7 @@
 							<center>
 								<div id='aprovado' style="width: 200px; height: 200px"></div>
 								<h4>Aprovado</h4>
-								<a href="lista-livro.php" role='button' class="btn btn-primary"> Voltar </a>
+								<a href="lista-usuario.php" role='button' class="btn btn-primary"> Voltar </a>
 							</center>
 
 						<?php	} else {?>
@@ -56,7 +52,7 @@
 							<center>
 								<div id='erro' style="width: 200px; height: 200px"></div>
 								<h4>Reprovado</h4>
-								<a href="lista-livro.php" role='button' class="btn btn-primary"> Voltar </a>
+								<a href="lista-usuario.php" role='button' class="btn btn-primary"> Voltar </a>
 							</center>
 
 
@@ -111,3 +107,5 @@
 
 </body>
 </html>
+
+

@@ -2,17 +2,16 @@
 	require_once("cabecalho.php"); 
 	require_once("conecta.php");
 	require_once("banco-livraria.php");
-	require_once("logica-usuario.php");
 
 	$nome = $_POST['nome'];
 
-	$resultado = searchLivro($conexao , $nome);
+	$resultado = searchLivro($connection, $nome);
 
 	if($resultado){ ?>
 		<h2>Resultado da Busca</h2>
 		<table class="table table-striped table-bordered">
 		<tr>
-			<td>Nome</td>
+			<td>Nome do Livro</td>
 			<td>Sinopse</td>
 			<td>Preço</td>
 		</tr>
@@ -23,9 +22,9 @@
 	foreach($resultado as $l){ ?>
 	
 		<tr>
-			<td><?=$l['nome']; ?></td>
+			<td><?=$l['nomeLivro']; ?></td>
 			<td><?=$l['sinopse']; ?></td>
-			<td>R$ <?=$l['preco']; ?></td>
+			<td>R$ <?=$l['valor']; ?></td>
 			<td>
 				<form action="adiciona-emprestimo.php" method="post">
 					<input type="hidden" value="<?=$l['id']?>" name="id">
